@@ -4,31 +4,20 @@ import pandas as pd
 
 df = pd.read_csv("Seattle_ticketmaster_venues - Sheet1.csv")
 
-venue_ids = []
+body = ""
 
-# Create a dictionary in which all of the information will be stored, sorted by category
-shows = {
-    "venues": [],
-    "bands": [],
-    "dates": [],
-    # "image links": [],
-    # "show links": [],
-}
-
-venues = [row["Venue Name"] for index, row in df.iterrows()]
-print(venues)  # this is a checker
-
-# Fill the dictionary with info
 for index, row in df.iterrows():
-    show_info = get_shows(row["Venue Name"], row["vID"])
-    for key, value in show_info:
-        shows[key].append(value)
+    venue, bands, date = get_shows(row["Venue Name"], row["vID"])
 
+    body = body + venue + "\n"
 
-print(shows)
+    for x, band in enumerate(bands):
+        if x:
+            body = body + band + ", "
+        body = body + band
 
-# for venue, ids in show_ids:
+    body = body + "\n" + date + 2*"\n"
 
+    #  print(f"{venue}, {band}, {date}")
 
-print(show_info)  # this is a checker
-
+print(body)
