@@ -11,13 +11,20 @@ for index, row in df.iterrows():
 
     body = body + venue + "\n"
 
+    all_bands = []
+
+    for b in bands:
+        if "w/" in b:
+            all_bands.extend([nb.strip() for nb in b.split('w/')])
+            bands = all_bands
+        else:
+            pass
+
     for x, band in enumerate(bands):
         if x:
             body = body + band + ", "
         body = body + band
 
     body = body + "\n" + date + 2*"\n"
-
-    #  print(f"{venue}, {band}, {date}")
 
 print(body)
