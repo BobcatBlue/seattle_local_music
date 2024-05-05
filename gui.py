@@ -1,15 +1,18 @@
-from ticketmaster_shows import get_shows
 import functions
 import PySimpleGUI as sg
 import time
+from playsound import playsound
 
 
 sg.theme("brightcolors")
 clock = sg.Text("", key="clock", font=("Arial", 8))
-label_1 = sg.Text(f"\n Click the button to see who's playing music in Seattle tonight\n")
+label_1 = sg.Text(f"\n Click the button to see who's playing music in Seattle tonight\n",
+                  font=("Helvetica", 18))
 label_2 = sg.Text("Press the button, dude.\n")
 spacer = sg.Text("")
-show_button = sg.Button("Show me the music!", size=40, mouseover_colors="LightBlue2", tooltip="Press it.", key="show")
+show_button = sg.Button("Show me the music!", size=40, mouseover_colors="LightBlue2",
+                        tooltip="Press it.", key="show")
+sound_button = sg.Button(size=1, image_source="Images/notes.png", key="play")
 list_box = sg.Listbox(values=[f"Press the Button....do it."], enable_events=True, size=(70,25), key="list")
 exit_button = sg.Button("Exit")
 
@@ -17,7 +20,7 @@ window = sg.Window("Who's Playing in Seattle?",
                    layout=[[clock],
                            [label_1],
                            [label_2],
-                           [show_button],
+                           [show_button, sound_button],
                            [spacer],
                            [list_box]],
                    element_justification='c',
@@ -31,8 +34,11 @@ while True:
     print(2, values)
 
     match event:
+        case "play":
+            playsound("sounds/Orch stab.wav")
         case "show":
             window["list"].update(values=functions.print_shows(""))
+            playsound("sounds/Orch stab.wav")
         case "Exit":
             break
         case sg.WIN_CLOSED:
