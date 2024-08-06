@@ -4,7 +4,7 @@ import time
 from playsound import playsound
 
 
-sg.theme("brightcolors")
+sg.theme("darkpurple3")
 clock = sg.Text("", key="clock", font=("Arial", 8))
 label_1 = sg.Text(f"\n Click the button to see who's playing music in Seattle tonight\n",
                   font=("Helvetica", 18))
@@ -28,12 +28,11 @@ window = sg.Window("Who's Playing in Seattle?",
                    element_justification='c',
                    font=('Helvetica', 13))
 
-
 while True:
     event, values = window.read(timeout=200)
     window["clock"].update(value=time.strftime("%b %d, %Y, %H:%M:%S"))
-    print(1, event)
-    print(2, values)
+    #print(1, event)
+    #print(2, values)
 
     match event:
         case "play":
